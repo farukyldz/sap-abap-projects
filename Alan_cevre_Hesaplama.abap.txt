@@ -1,0 +1,56 @@
+REPORT ZFY_P_ODEV1.
+
+
+PARAMETERS: p_kenar1 TYPE i,
+            p_kenar2 TYPE i,
+            p_kenar3 TYPE i DEFAULT 0.
+
+PARAMETERS: al_ALAN AS CHECKBOX,
+            cv_CEVRE AS CHECKBOX.
+
+PARAMETERS: dl_DKTGN RADIOBUTTON GROUP d1 DEFAULT 'X',
+            dl_UCGEN RADIOBUTTON GROUP d1.
+
+DATA: lv_alan TYPE f,
+      lv_cevre TYPE i,
+      s       TYPE f.
+
+START-OF-SELECTION.
+
+IF dl_DKTGN = 'X'.
+  IF al_ALAN = 'X'.
+    lv_alan = p_kenar1 * p_kenar2.
+    WRITE: / 'Dikdörtgenin Alanı:', lv_alan DECIMALS 0.
+  ENDIF.
+
+  IF cv_CEVRE = 'X'.
+    lv_cevre = 2 * ( p_kenar1 + p_kenar2 ).
+    WRITE: / 'Dikdörtgenin Çevresi:', lv_cevre.
+  ENDIF.
+
+ELSEIF dl_UCGEN = 'X'.
+  IF p_kenar3 = 0.
+    WRITE: / 'Üçgen için 3. kenar zorunludur.'.
+    EXIT.
+  ENDIF.
+
+  IF ( p_kenar1 + p_kenar2 > p_kenar3 ) AND
+     ( p_kenar2 + p_kenar3 > p_kenar1 ) AND
+     ( p_kenar1 + p_kenar3 > p_kenar2 ).
+
+    IF al_ALAN = 'X'.
+      s = ( p_kenar1 + p_kenar2 + p_kenar3 ) / 2.
+      lv_alan = SQRT( s * ( s - p_kenar1 ) * ( s - p_kenar2 ) * ( s - p_kenar3 ) ).
+      WRITE: / 'Üçgenin Alanı:', lv_alan DECIMALS 2.
+    ENDIF.
+
+    IF cv_CEVRE = 'X'.
+      lv_cevre = p_kenar1 + p_kenar2 + p_kenar3.
+      WRITE: / 'Üçgenin Çevresi:', lv_cevre.
+    ENDIF.
+
+  ELSE.
+    WRITE: / 'Geçersiz üçgen kenarları girdiniz!'.
+  ENDIF.
+
+ENDIF.
