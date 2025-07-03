@@ -1,0 +1,125 @@
+REPORT ZFY_P_ODEV2.
+
+SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME.
+
+PARAMETERS:
+  p_ogrnc RADIOBUTTON GROUP rb1 USER-COMMAND rad DEFAULT 'X',
+  p_kitap RADIOBUTTON GROUP rb1,
+  p_ktphn RADIOBUTTON GROUP rb1,
+  p_yazar RADIOBUTTON GROUP rb1.
+
+" Kitap alanları
+PARAMETERS:
+  p_kad   TYPE char50 MODIF ID KIT,
+  p_kISBN TYPE i MODIF ID KIT,
+  p_ktur  TYPE char30 MODIF ID KIT,
+  p_kyaz  TYPE char40 MODIF ID KIT,
+  p_ksay  TYPE i MODIF ID KIT,
+  p_kpuan TYPE i MODIF ID KIT.
+
+" Öğrenci alanları
+PARAMETERS:
+  p_ogad TYPE char30 MODIF ID OGR,
+  p_ogsoy TYPE char30 MODIF ID OGR,
+  p_ogcin TYPE char30 MODIF ID OGR,
+  p_ogbd  TYPE d MODIF ID OGR,
+  p_ogsın TYPE i MODIF ID OGR,
+  p_ogrp  TYPE i MODIF ID OGR.
+
+" Kütüphane alanları
+PARAMETERS:
+  p_logno TYPE i MODIF ID KUT,
+  p_lkno  TYPE i MODIF ID KUT,
+  p_lalt  TYPE d MODIF ID KUT,
+  p_lvlt  TYPE d MODIF ID KUT.
+
+" Yazar alanları
+PARAMETERS:
+  p_yad    TYPE char30 MODIF ID YAZ,
+  p_ysoyad TYPE char30 MODIF ID YAZ.
+
+SELECTION-SCREEN END OF BLOCK b1.
+
+
+AT SELECTION-SCREEN OUTPUT.
+
+  LOOP AT SCREEN.
+
+    IF p_ogrnc = 'X'.
+      IF screen-group1 = 'OGR'.
+        screen-active = 1.
+
+    ELSEIF screen-group1 = 'KIT'.
+           screen-active = 0.
+
+
+     ELSEIF screen-group1 = 'YAZ'.
+           screen-active = 0.
+
+
+      ELSEIF screen-group1 = 'KUT'.
+           screen-active = 0.
+
+
+     ENDIF.
+
+     ELSEIF p_kitap = 'X'.
+         IF screen-group1 = 'KIT'.
+           screen-active = 1.
+
+
+         ELSEIF screen-group1 = 'OGR'.
+           screen-active = 0.
+
+
+         ELSEIF screen-group1 = 'YAZ'.
+           screen-active = 0.
+
+
+         ELSEIF screen-group1 = 'KUT'.
+           screen-active = 0.
+
+
+    ENDIF.
+
+    ELSEIF p_ktphn = 'X'.
+         IF screen-group1 = 'KUT'.
+           screen-active = 1.
+
+
+         ELSEIF screen-group1 = 'OGR'.
+           screen-active = 0.
+
+
+         ELSEIF screen-group1 = 'YAZ'.
+           screen-active = 0.
+
+
+         ELSEIF screen-group1 = 'KIT'.
+           screen-active = 0.
+
+
+    ENDIF.
+
+     ELSEIF p_yazar = 'X'.
+         IF screen-group1 = 'YAZ'.
+           screen-active = 1.
+
+
+         ELSEIF screen-group1 = 'OGR'.
+           screen-active = 0.
+
+
+         ELSEIF screen-group1 = 'KUT'.
+           screen-active = 0.
+
+
+         ELSEIF screen-group1 = 'KIT'.
+           screen-active = 0.
+
+           MODIFY SCREEN.
+
+     ENDIF.
+     ENDIF.
+ MODIFY SCREEN.
+      ENDLOOP.
