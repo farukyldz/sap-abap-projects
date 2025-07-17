@@ -1,0 +1,12 @@
+DATA gv_index TYPE i.
+
+DO 101 TIMES.
+  IF gv_ındex MOD 2 EQ 0.
+    WRITE: / 'Çift Sayı:' , gv_index.
+  ELSE .
+    WRITE: / 'Tek  Sayı:'  , gv_index.
+
+  ENDIF.
+  gv_index =  gv_index + 1.
+
+ENDDO.
