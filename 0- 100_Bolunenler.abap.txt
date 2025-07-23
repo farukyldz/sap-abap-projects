@@ -1,0 +1,41 @@
+
+DATA: gv_index TYPE i.
+gv_index = 0.
+
+WRITE : / '2 ye tam bölünebilen sayılar.'.
+
+DO 101 TIMES.
+  gv_index = gv_index + 1.
+  IF gv_index MOD 2 EQ 0.
+    WRITE : gv_index.
+
+  ENDIF.
+ENDDO.
+
+gv_index = 0.
+
+
+WRITE : /  '3 ye tam bölünebilen sayılar.'.
+
+DO 101 TIMES.
+  gv_index = gv_index + 1.
+  IF gv_index MOD 3 EQ 0.
+    WRITE : gv_index.
+
+  ENDIF.
+
+ENDDO.
+
+
+gv_index = 0.
+
+WRITE : / '5 ye tam bölünebilen sayılar.'.
+
+DO 101 TIMES.
+  gv_index = gv_index + 1.
+  IF gv_index MOD 5 EQ 0.
+    WRITE : gv_index.
+
+  ENDIF.
+
+ENDDO.
